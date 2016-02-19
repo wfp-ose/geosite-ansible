@@ -1,0 +1,7 @@
+---
+
+- name: Create a Geosite virtual machine via vagrant
+  hosts: all
+  remote_user: vagrant
+  roles:
+    #- geosite_db  # Installs local sparc2.git and geosite-framework.git repos as editable

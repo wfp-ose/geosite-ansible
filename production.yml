@@ -1,0 +1,12 @@
+---
+
+- name: Create a Geosite virtual machine for production
+  hosts: all
+  remote_user: ubuntu
+
+  roles:
+    - common_base
+    - common_db
+    - common_memcached
+    - common_webserver_static
+    - common_webserver_app
