@@ -1,0 +1,25 @@
+---
+
+# http://docs.ansible.com/ansible/django_manage_module.html
+
+- name: "Migrate Django / Fake Initial"
+  shell: "{{ VENV_PATH }}/bin/python manage.py migrate --fake-initial"
+  args:
+    chdir: "{{ PRJ_REPO_PATH_MAIN }}"
+
+- name: "Migrate Django / Make Migrations for Apps"
+  shell: "{{ VENV_PATH }}/bin/python manage.py makemigrations {{ item }}"
+  with_items: "{{ DJANGO_APPS }}"
+  args:
+    chdir: "{{ PRJ_REPO_PATH_MAIN }}"
+
+- name: "Migrate Django / Migrate Apps"
+  shell: "{{ VENV_PATH }}/bin/python manage.py migrate {{ item }}"
+  with_items: "{{ DJANGO_APPS }}"
+  args:
+    chdir: "{{ PRJ_REPO_PATH_MAIN }}"
+
+- django_manage: command="createsuperuser --noinput --username=admin --email=admin@example.com" app_path={{ PRJ_REPO_PATH_MAIN }}
+
+- django_manage: command=loaddata app_path={{ PRJ_REPO_PATH_MAIN }} fixtures={{ item }}
+  with_items: "{{ DJANGO_FIXTURES }}"

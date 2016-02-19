@@ -1,4 +1,4 @@
-# sparc2-ansible
+# geosite-ansible
 Ansible Project for Geosite Server
 
 # Installation

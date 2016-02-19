@@ -56,3 +56,12 @@ DATABASE_ACL:
 
 DATABASE_LISTEN_ADDRESSES:
   - "*"
+
+
+DJANGO_APPS:
+  - "geositeserver"
+  - "wfppresencedjango"
+  - "lsibdjango"
+  - "gauldjango"
+
+DJANGO_FIXTURES:
