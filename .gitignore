@@ -1,5 +1,5 @@
 *.DS_Store
 *.swp
-group_vars/all/secret
-group_vars/secret.yml
+secret.yml
 .vagrant
+hosts

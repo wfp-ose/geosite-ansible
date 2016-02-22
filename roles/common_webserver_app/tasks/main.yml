@@ -60,3 +60,4 @@
   with_items:
     - virtualenvwrapper
     - paver
+    - pexpect

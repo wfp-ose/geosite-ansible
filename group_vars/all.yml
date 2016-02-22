@@ -49,19 +49,13 @@ COMMON_EDITABLE_PACKAGES:  # For role "common_editable"
 PATH_PG_HBA: "/etc/postgresql/9.3/main/pg_hba.conf"
 PATH_PG_CONF: "/etc/postgresql/9.3/main/postgresql.conf"
 
-DATABASE_ACL:
-  - "local {{ DB_NAME }} {{ DB_USER }} md5"
-  - "host {{ DB_NAME }} {{ DB_USER }} 127.0.0.1/32 md5"
-  - "host {{ DB_NAME }} {{ DB_USER }} 10.0.2.2/32 md5"
-
-DATABASE_LISTEN_ADDRESSES:
-  - "*"
-
-
 DJANGO_APPS:
   - "geositeserver"
   - "wfppresencedjango"
   - "lsibdjango"
   - "gauldjango"
 
-DJANGO_FIXTURES:
+DJANGO_FIXTURES: []
+
+SUPERUSER_USERNAME: admin
+SUPERUSER_EMAIL: admin@example.com

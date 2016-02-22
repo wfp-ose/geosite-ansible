@@ -1,0 +1,18 @@
+---
+
+OS_USER: ubuntu
+
+DATABASE_ACL:
+  - "local {{ DB_NAME }} {{ DB_USER }} md5"
+  - "host {{ DB_NAME }} {{ DB_USER }} 127.0.0.1/32 md5"
+
+DATABASE_LISTEN_ADDRESSES:
+  - "*"
+
+SUPERVISOR_CONFIG_PATH: "{{ PRJ_REPO_PATH_MAIN }}/supervisord.conf"
+
+SUPERVISOR_PROGRAMS:
+  - "geosite"
+
+RUNTIME_PACKAGES:
+  - "gunicorn"

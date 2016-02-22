@@ -1,0 +1,17 @@
+- name: Check Static Development Environment
+  shell: "cat {{ STATIC_SRC }}/node_modules/{{ item.name }}/package.json | jq -r '.version'"
+  with_items: "{{ STATIC_DEV_DEPS }}"
+  register: static_check
+  failed_when: False
+  changed_when: False
+  #changed_when: installed_npm_pkgs.stdout != "{{ item.version }}"
+
+- name: "Install Static Development Libraries to Environment"
+  shell: "bash -c \"test '{{ item.0.version }}' != '{{ item.1.stdout }}' && npm install {{ item.0.name }}\""
+  #npm: name="{{ item.0.name }}" version="{{ item.0.version }}" path="{{ STATIC_SRC }}" state=present
+  with_together:
+    - "{{ STATIC_DEV_DEPS }}"
+    - static_check.results
+  args:
+    chdir: "{{ STATIC_SRC }}"
+  failed_when: False

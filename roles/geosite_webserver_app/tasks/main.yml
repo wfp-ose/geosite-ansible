@@ -9,3 +9,17 @@
 
 - name: "Install Jenks"
   pip: "name={{ JENKS }} virtualenv={{ VENV_PATH }}"
+
+- name: "Install Runtime Packages"
+  pip: "name={{ item }} virtualenv={{ VENV_PATH }}"
+  with_items: "{{ RUNTIME_PACKAGES }}"
+
+- name: "Update supervisord.conf"
+#  become: yes
+#  become_user: "{{ OS_USER }}"
+  action: template src=templates/supervisord.conf.j2 dest="{{ PRJ_REPO_PATH_MAIN }}/supervisord.conf"
+
+- name: "Update gunicorn.con.py"
+#  become: yes
+#  become_user: "{{ OS_USER }}"
+  action: template src=templates/gunicorn.conf.py.j2 dest="{{ PRJ_REPO_PATH_MAIN }}/gunicorn.conf.py"

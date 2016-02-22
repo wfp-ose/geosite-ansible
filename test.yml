@@ -4,5 +4,5 @@
   hosts: all
   remote_user: vagrant
   roles:
-    - "geosite_migrations"
+    - "geosite_webserver_static"
     #- geosite_db  # Installs local sparc2.git and geosite-framework.git repos as editable

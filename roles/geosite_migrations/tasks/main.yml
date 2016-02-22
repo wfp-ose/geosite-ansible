@@ -18,8 +18,31 @@
   with_items: "{{ DJANGO_APPS }}"
   args:
     chdir: "{{ PRJ_REPO_PATH_MAIN }}"
+  failed_when: False
 
-- django_manage: command="createsuperuser --noinput --username=admin --email=admin@example.com" app_path={{ PRJ_REPO_PATH_MAIN }}
+#- name: "Create Web App Superuser"
+#  shell: "DJANGO_SETTINGS_MODULE={{ PRJ_DJ_NAME }}.settings {{ VENV_PATH }}/bin/django-admin createsuperuser --username admin --email admin@example.com"
+#  args:
+#    chdir: "{{ PRJ_REPO_PATH_MAIN }}"
 
-- django_manage: command=loaddata app_path={{ PRJ_REPO_PATH_MAIN }} fixtures={{ item }}
+- name: "Create Web App Superuser"
+  expect:
+    command: "/bin/bash -c \". ~/.bash_aliases; {{ VENV_PATH }}/bin/django-admin createsuperuser --username {{ SUPERUSER_USERNAME }} --email {{ SUPERUSER_EMAIL }}\""
+    responses:
+      Password: "{{ SUPERUSER_PASSWORD }}"
+      Password (again): "{{ SUPERUSER_PASSWORD }}"
+  args:
+    chdir: "{{ PRJ_REPO_PATH_MAIN }}"
+  register: superuser_created
+  changed_when: superuser_created.rc == 0
+  failed_when: False
+
+#- name: "Load Fixtures"
+#  django_manage: command=loaddata app_path={{ PRJ_REPO_PATH_MAIN }} fixtures={{ item }} virtualenv={{ VENV_PATH }}
+#  with_items: "{{ DJANGO_FIXTURES }}"
+
+- name: "Load Fixtures"
+  shell: "{{ VENV_PATH }}/bin/python manage.py loaddata {{ item }}"
+  args:
+    chdir: "{{ PRJ_REPO_PATH_MAIN }}"
   with_items: "{{ DJANGO_FIXTURES }}"
