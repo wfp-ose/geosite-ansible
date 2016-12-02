@@ -1,5 +1,6 @@
 ---
 
+# killall with '-w' switches killall to synchronous mode.  It'll wait for the process to die before returning.
 - name: "Kill Supervisord"
   become: yes
   become_user: root

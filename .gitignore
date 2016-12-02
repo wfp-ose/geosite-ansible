@@ -3,3 +3,5 @@
 secret.yml
 .vagrant
 hosts
+scratch.yml
+*.pyc

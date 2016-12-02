@@ -35,8 +35,6 @@
   become_user: root
   apt: name={{ item }} state=present
   with_items:
-    - python-dev
-    - python-pip
     - python-virtualenv
     - python-gdal
     - python-psycopg2
@@ -60,4 +58,3 @@
   with_items:
     - virtualenvwrapper
     - paver
-    - pexpect

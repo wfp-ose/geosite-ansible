@@ -17,9 +17,9 @@
 - name: "Update supervisord.conf"
 #  become: yes
 #  become_user: "{{ OS_USER }}"
-  action: template src=templates/supervisord.conf.j2 dest="{{ PRJ_REPO_PATH_MAIN }}/supervisord.conf"
+  template: src=templates/supervisord.conf.j2 dest="{{ PRJ_REPO_PATH_MAIN }}/supervisord.conf"
 
 - name: "Update gunicorn.con.py"
 #  become: yes
 #  become_user: "{{ OS_USER }}"
-  action: template src=templates/gunicorn.conf.py.j2 dest="{{ PRJ_REPO_PATH_MAIN }}/gunicorn.conf.py"
+  template: src=templates/gunicorn.conf.py.j2 dest="{{ PRJ_REPO_PATH_MAIN }}/gunicorn.conf.py"

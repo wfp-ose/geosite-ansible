@@ -1,35 +1,11 @@
 ---
 
-#########################################################
-## See https://github.com/ansible/ansible-modules-extras/issues/681 for potential
-# future performance improvements to npm install
-
-# - name: Install Bower & Gulp to Local Environment
-#  npm: "name={{ item }} path={{ STATIC_SRC }} state=latest"
-#  with_items:
-#    - bower
-#    - gulp
-
-#- name: Install SPARC 2.x Static Development Libraries to Local Environment
-#  npm: path={{ STATIC_SRC }} state=latest
-
-#########################################################
-
 - name: "Update NGINX / sites-available/default"
   become: yes
   become_user: root
   action: template src=templates/nginx.sites-available.default.j2 dest=/etc/nginx/sites-available/default
   notify:
     - restart nginx
-
-#########################################################
-
-- name: "Install Static Development Libraries to Environment"
-  npm: name="{{ item.name }}" version="{{ item.version }}" path="{{ STATIC_SRC }}" state=present
-  with_items:
-    - "{{ STATIC_DEV_DEPS }}"
-
-#########################################################
 
 - name: Create WWW Root
   become: yes
